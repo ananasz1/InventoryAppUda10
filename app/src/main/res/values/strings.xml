@@ -26,6 +26,7 @@
     <string name="selectPicture">Select Picture</string>
     <string name="productNameReq">Product name required</string>
     <string name="productPicReq">Product picture required</string>
+    <string name="quantityReq">Product quantity required</string>
     <string name="dummyDataName">Mobile</string>
     <string name="dummyDataPrice">649</string>
     <string name="dummyDataPicUri">android.resource://com.example.schmidegv.inventoryappuda10/drawable/mobile</string>

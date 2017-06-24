@@ -91,8 +91,7 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierEmail.setEnabled(true);
             mOrder.setVisibility(View.GONE);
             invalidateOptionsMenu();
-        } else {
-            setTitle(getString(R.string.edit_product_title));
+        } else {setTitle(getString(R.string.edit_product_title));
             mImageText.setText(getString(R.string.change_photo));
             mSupplierName.setEnabled(false);
             mSupplierEmail.setEnabled(false);
@@ -283,8 +282,11 @@ public class EditorActivity extends AppCompatActivity implements
         // Check if this is supposed to be a new product
         // and check if all the fields in the editor are blank
         if (mCurrentProductUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
-                TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierEmailString) &&
+                TextUtils.isEmpty(nameString) &&
+                TextUtils.isEmpty(priceString) &&
+                TextUtils.isEmpty(supplierNameString) &&
+                TextUtils.isEmpty(supplierEmailString) &&
+                TextUtils.isEmpty(quantityString) &&
                 imageUri == null) {
             // Since no fields were modified, we can return early without creating a new product.
             // No need to create ContentValues and no need to do any ContentProvider operations.
@@ -299,9 +301,6 @@ public class EditorActivity extends AppCompatActivity implements
 
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, nameString);
-        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
-
-
 
         if (TextUtils.isEmpty(priceString)) {
             Toast.makeText(this, getString(R.string.productPriceReq), Toast.LENGTH_SHORT).show();
@@ -323,6 +322,12 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL, supplierEmailString);
+
+        if (TextUtils.isEmpty(quantityString)) {
+            Toast.makeText(this, getString(R.string.quantityReq), Toast.LENGTH_SHORT).show();
+            return allFilledOut;
+         }
+         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityString);
 
         if (imageUri == null) {
             Toast.makeText(this, getString(R.string.productPicReq), Toast.LENGTH_SHORT).show();
